@@ -75,39 +75,40 @@ Item { // Bar content region
         }
 
         // Scroll to change brightness
-        WheelHandler {
-            onWheel: event => {
-                if (event.angleDelta.y < 0)
-                    root.brightnessMonitor.setBrightness(root.brightnessMonitor.brightness - 0.05);
-                else if (event.angleDelta.y > 0)
-                    root.brightnessMonitor.setBrightness(root.brightnessMonitor.brightness + 0.05);
-                // Store the mouse position and start tracking
-                barLeftSideMouseArea.lastScrollX = event.x;
-                barLeftSideMouseArea.lastScrollY = event.y;
-                barLeftSideMouseArea.trackingScroll = true;
-            }
-            acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
-        }
-        onPositionChanged: mouse => {
-            if (barLeftSideMouseArea.trackingScroll) {
-                const dx = mouse.x - barLeftSideMouseArea.lastScrollX;
-                const dy = mouse.y - barLeftSideMouseArea.lastScrollY;
-                if (Math.sqrt(dx * dx + dy * dy) > osdHideMouseMoveThreshold) {
-                    GlobalStates.osdBrightnessOpen = false;
-                    barLeftSideMouseArea.trackingScroll = false;
-                }
-            }
-        }
+        // [sam] removing brightness handler cause no need
+        // WheelHandler {
+        //     onWheel: event => {
+        //         if (event.angleDelta.y < 0)
+        //             root.brightnessMonitor.setBrightness(root.brightnessMonitor.brightness - 0.05);
+        //         else if (event.angleDelta.y > 0)
+        //             root.brightnessMonitor.setBrightness(root.brightnessMonitor.brightness + 0.05);
+        //         // Store the mouse position and start tracking
+        //         barLeftSideMouseArea.lastScrollX = event.x;
+        //         barLeftSideMouseArea.lastScrollY = event.y;
+        //         barLeftSideMouseArea.trackingScroll = true;
+        //     }
+        //     acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
+        // }
+        // onPositionChanged: mouse => {
+        //     if (barLeftSideMouseArea.trackingScroll) {
+        //         const dx = mouse.x - barLeftSideMouseArea.lastScrollX;
+        //         const dy = mouse.y - barLeftSideMouseArea.lastScrollY;
+        //         if (Math.sqrt(dx * dx + dy * dy) > osdHideMouseMoveThreshold) {
+        //             GlobalStates.osdBrightnessOpen = false;
+        //             barLeftSideMouseArea.trackingScroll = false;
+        //         }
+        //     }
+        // }
         
         // Visual content
-        ScrollHint {
-            reveal: barLeftSideMouseArea.hovered
-            icon: "light_mode"
-            tooltipText: Translation.tr("Scroll to change brightness")
-            side: "left"
-            anchors.left: parent.left
-            anchors.verticalCenter: parent.verticalCenter
-        }
+        // ScrollHint {
+        //     reveal: barLeftSideMouseArea.hovered
+        //     icon: "light_mode"
+        //     tooltipText: Translation.tr("Scroll to change brightness")
+        //     side: "left"
+        //     anchors.left: parent.left
+        //     anchors.verticalCenter: parent.verticalCenter
+        // }
 
         RowLayout {
             id: leftSectionRowLayout
